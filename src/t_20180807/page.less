@@ -1,0 +1,120 @@
+@url:"/assets/t_20180807/";
+
+
+.container{
+  width:10.8rem;
+  height:21.93rem;
+  &-bg1{
+    width:100%;
+    height:6rem;
+    background:url("@{url}bg1.jpg") center top no-repeat;
+    background-size: 100% 100%;
+  }
+  &-bg2{
+    width:100%;
+    height:6rem;
+    background:url("@{url}bg2.jpg") center top no-repeat;
+    background-size: 100% 100%;
+  }
+  &-bg3{
+    width:100%;
+    background-size: 100% 100%;
+    height:5.4rem;
+    background:url("@{url}bg3.jpg") center top no-repeat;
+    background-size: 100% 100%;
+  }
+  &-bg4{
+    width:100%;
+    height:5rem;
+    background:#FEEB47 url("@{url}bg4.jpg") center top no-repeat;
+    background-size: 100% auto;
+  }
+  &-button{
+    width:100%;
+    height:2.4rem;
+    background:url("@{url}button.png") center top no-repeat;
+    background-size: 100% 100%;
+  }
+  &-text{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    width:100%;
+    height:2.6rem;
+    text-align: center;
+    font-weight: bold;
+    .text{
+      &-one{
+        margin:0;
+        font-size:.32rem;
+        color:#aa6336;
+      }
+      &-two{
+        margin:0;
+        font-size:.36rem;
+        color:#682b05;
+      }
+      &-three{
+        margin:0;
+        font-size:.3rem;
+        color:#682b05;
+      }
+    }
+  }
+
+  &-pop{
+    display:none;
+    align-items: center;
+    justify-content: center;
+
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.4);
+    &.show{
+      display:flex;
+    }
+    .pop-box{
+      position:relative;
+      width:4.98rem * 2;
+      height:6.41rem * 2;
+      background:url("@{url}pop.png") center top no-repeat;
+      background-size: 100% 100%;
+      &-input{
+        margin:7rem auto 0;
+        width:3.5rem * 2;
+        height:.5rem * 2;
+        input{
+          outline: none;
+
+          display:block;
+          box-sizing: border-box;
+          width:100%;
+          height:100%;
+          padding:0 1em;
+          line-height: 100%;
+          font-size:.6rem;
+          text-align: center;
+        }
+      }
+      &-btn{
+        margin:1rem auto 0;
+        width:3.6rem * 2;
+        height:.6rem * 2;
+        background:url("@{url}pop_btn.png") center top no-repeat;
+        background-size: 100% 100%;
+      }
+      &-close{
+        position:absolute;
+        top:1rem;
+        right:1rem;
+        width:.6rem * 2;
+        height:.6rem * 2;
+      }
+    }
+  }
+}

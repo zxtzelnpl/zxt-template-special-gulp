@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <script>
+      function adaptFontSize(designWidth, rem2px) {
+        var d = window.document.createElement('div');
+        d.style.width = '1rem';
+        d.style.display = "none";
+        var head = window.document.getElementsByTagName('head')[0];
+        head.appendChild(d);
+        var defaultFontSize = parseFloat(window.getComputedStyle(d, null).getPropertyValue('width'));
+        d.remove();
+        document.documentElement.style.fontSize = window.innerWidth / designWidth * rem2px / defaultFontSize * 100 + '%';
+        var st = document.createElement('style');
+        var portrait = "@media screen and (min-width: " + window.innerWidth + "px) {html{font-size:" + ((window.innerWidth / (designWidth / rem2px) / defaultFontSize) * 100) + "%;}}";
+        var landscape = "@media screen and (min-width: " + window.innerHeight + "px) {html{font-size:" + ((window.innerHeight / (designWidth / rem2px) / defaultFontSize) * 100) + "%;}}"
+        st.innerHTML = portrait + landscape;
+        head.appendChild(st);
+        return defaultFontSize
+      };
+      var defaultFontSize = adaptFontSize(720, 100);
+    </script>
+    <style>
+        body, html,input,p {
+            margin: 0;
+            padding: 0;
+        }
+
+        input {
+            outline: none;
+        }
+
+        .container {
+            box-sizing: border-box;
+            padding-top:5.72rem;
+
+            width: 7.2rem;
+            height: 12.81rem;
+            background: url("./background.jpg") no-repeat;
+            background-size: 7.2rem 12.81rem;
+        }
+
+        .phone{
+            display:flex;
+            align-items: center;
+            justify-content: flex-start;
+
+            margin:0 auto;
+            padding: 4px 0;
+            width:5.6rem;
+            height:.6rem;
+            border-radius: 8px;
+            border: #fad400 solid;
+            background:#fff;
+        }
+        .phone_img{
+            display:block;
+            margin-left:.3rem;
+            width:.4rem;
+            height:.4rem;
+        }
+        .phone_input{
+            display:flex;
+            align-items: center;
+            border:none;
+            margin-left:.3rem;
+            width:4rem;
+            height:.6rem;
+
+            color: gray;
+            font-size:.4rem;
+        }
+        .button {
+            display:flex;
+            align-items: center;
+            justify-content: center;
+
+            margin:.2rem auto;
+            padding: 7px 0;
+            width:5.6rem;
+            height:.6rem;
+            border-radius: 8px;
+
+            color: #7e4006;
+            font-size: 24px;
+            font-weight: bold;
+
+            background: #fad400;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="phone">
+        <img class="phone_img" src="./phone_logo.png">
+        <input class="phone_input" id="phone" name="phone" type="text" placeholder="请输入手机号码">
+    </div>
+
+    <p class="button" id="post_phone">
+        立即领取
+    </p>
+</div>
+<script>
+  $("#post_phone").click(function(){
+    var phone = $("#phone").val().trim();
+
+    var from = window.location.href;
+    var reg = /^1\d{10}$/;
+    if(!reg.test(phone)){
+      alert('请输入正确的手机号码');
+      return false;
+    }
+    $.post('post_wyb',{phone:phone,from:from},function(data){
+      if(data == 1){
+        alert('提交成功，请保持手机畅通！');
+      }else{
+        alert('已提交，请耐心等待！');
+      }
+    })
+  })
+</script>
+</body>
+</html>

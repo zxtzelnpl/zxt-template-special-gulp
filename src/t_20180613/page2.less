@@ -1,0 +1,94 @@
+@imgUrl:"http://public.jyzqsh.com/t_20180613/";
+
+
+html,body,p{
+  margin:0;
+  padding:0;
+}
+
+.container{
+  font-size:14px;
+  overflow: hidden;
+  .part{
+    position:relative;
+  }
+  .qr_code{
+    position:absolute;
+    z-index:1;
+    left:0;
+    top:0;
+    width:6.4rem;
+    height:4.35rem;
+    img{
+      display:block;
+      width:100%;
+      height:100%;
+    }
+  }
+
+  .wx_copy_btn{
+    position:absolute;
+    z-index:1;
+    bottom:0;
+    width:6.4rem;
+    height:1.2rem;
+    img{
+      display:block;
+      width:100%;
+      height:100%;
+    }
+  }
+}
+.part_1{
+  width:6.4rem;
+  height:6.4rem;
+  background:url("@{imgUrl}page_two_bg1.jpg") no-repeat;
+  background-size:cover;
+}
+.part_2{
+  width:6.4rem;
+  height:6.4rem;
+  background:url("@{imgUrl}page_two_bg2.jpg") no-repeat;
+  background-size:cover;
+}
+.part_3{
+  width:6.4rem;
+  height:4.66rem;
+  background:url("@{imgUrl}page_two_bg3.jpg") no-repeat;
+  background-size:cover;
+}
+.part_4{
+  width:6.4rem;
+  height:5.85rem;
+  background:url("@{imgUrl}page_two_bg4.jpg") no-repeat;
+  background-size:cover;
+}
+.part_5{
+  width:6.4rem;
+  height:4.35rem;
+  background:url("@{imgUrl}page_two_bg5.jpg") no-repeat;
+  background-size:cover;
+}
+.part_6{
+  width:6.4rem;
+  height:2.21rem;
+  background:url("@{imgUrl}page_two_bg6.jpg") no-repeat;
+  background-size:cover;
+}
+.foot{
+  width:100%;
+  height:100%;
+  font-size:8px;
+
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  p{
+    color:#7b71b7;
+    line-height: 1.2;
+    text-align: center;
+    white-space: nowrap;
+  }
+}

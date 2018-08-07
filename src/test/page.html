@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    @@include('../commom/head.html',{
+    "psd":"640",
+    "px":"100"
+    })
+    <title>测试页面</title>
+    <link rel="stylesheet" href="http://public.jyzqsh.com/css/reFresh.css">
+    <style>
+        body,html{
+            margin:0;
+            padding:0;
+        }
+    </style>
+</head>
+<body>
+    <div style="overflow: hidden">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias asperiores aspernatur commodi consequatur doloremque fugiat illo itaque nam nesciunt non odio, optio quae repellat repellendus suscipit ullam veniam veritatis vitae!
+        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci at commodi culpa deleniti ducimus earum
+            impedit obcaecati optio placeat voluptatibus! Consectetur cumque laboriosam obcaecati perspiciatis placeat
+            quidem, quo suscipit voluptatibus.
+        </div>
+        <div>Aliquam ducimus eveniet, laborum quidem reiciendis voluptate voluptatum! Distinctio, eos, explicabo! Culpa
+            enim ipsam mollitia placeat quod recusandae similique veritatis voluptate. Excepturi exercitationem iusto
+            laborum necessitatibus quis sint tempore voluptatibus.
+        </div>
+        <div>Magni, quos, reprehenderit? Animi beatae, commodi, consequatur consequuntur cumque dicta dolore doloremque
+            et explicabo impedit, itaque mollitia nemo quam quis repellendus vitae voluptatem. Alias aliquam explicabo
+            fugiat harum iste quas!
+        </div>
+        <div>Asperiores fugit impedit incidunt iure, praesentium quod recusandae? Illum, quasi, quidem! Accusantium
+            alias amet et eum facilis illo, laborum laudantium mollitia nemo quaerat quia repudiandae similique, sint
+            vel voluptates? Dolorum.
+        </div>
+        <div>Ab accusantium blanditiis consequatur dolore ea enim harum mollitia, nam non quas quibusdam repellendus
+            rerum voluptatem! Aliquam at deleniti dolorem est, eveniet iusto maiores, natus saepe sint ut vitae,
+            voluptatum.
+        </div>
+        <div>Aliquid, amet aspernatur culpa cupiditate debitis dolorum eligendi excepturi facere, fugiat illum impedit
+            in inventore ipsam maxime minima molestias necessitatibus nesciunt nisi quisquam quod recusandae
+            reprehenderit sed similique tempore unde?
+        </div>
+        <div>Ab accusamus ad aperiam culpa delectus dicta, eius expedita ipsum nulla pariatur quaerat quas reiciendis
+            sequi similique vel velit veritatis! Accusamus ad, facilis illo iste maiores minima necessitatibus quia
+            unde?
+        </div>
+        <div>A, ad blanditiis culpa debitis facilis incidunt natus necessitatibus perferendis provident quo rem sint
+            soluta voluptatum! Ab aspernatur atque consequatur cumque eaque excepturi facilis ipsum laboriosam nulla,
+            rem tempora temporibus?
+        </div>
+        <div>Aperiam debitis ipsum perferendis. Consequuntur corporis eaque nam neque nihil praesentium reiciendis rem
+            saepe voluptatem voluptatibus? A beatae consequatur culpa cum, dolore eveniet labore minus modi odit quia
+            tenetur unde.
+        </div>
+        <div>Aliquam expedita in ipsa iusto magni molestiae provident quae quasi quidem sequi, suscipit voluptas! Animi,
+            culpa dolorem dolorum eaque maiores modi molestias placeat praesentium sapiente suscipit voluptates
+            voluptatum? Officia, possimus.
+        </div>
+
+        <div class="loadMore" data-hasmore="1" style="width:100%;height:100px;">  <!--//hasmore为1则表示有跟多数据-->
+            <img class="refresh" style="display:block;width:100px;height:100px;margin:0 auto;" src="http://public.jyzqsh.com/img/refresh.png" alt="">
+        </div>
+    </div>
+    <!--依赖jquery-->
+    <script src="../../public/lib/jquery/dist/jquery.min.js"></script>
+    <!--加载插件-->
+    <script src="./LoadMore.js"></script>
+    <script>
+        $('.loadMore').loadMore({
+          loadFunction:function(end){
+            var me = this;
+            setTimeout(function(){
+              console.log('loadFunction');
+              console.log(me);
+              end(); //这个是结束的函数，要执行
+            },3000)
+          }
+        });
+    </script>
+</body>
+</html>

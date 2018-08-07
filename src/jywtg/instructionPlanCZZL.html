@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    @@include('../commom/head.html',{
+    "psd":"750",
+    "px":"100"
+    })
+    <title>君银微投顾</title>
+    <link rel="stylesheet" href="./main.css">
+</head>
+<body>
+<div class="instruction">
+    @@include('./common/instructionHead.html')
+
+    <div class="instructionCZZL">
+        <div class="czzlBox sell">
+            <div class="czzlBoxUp">
+                <p class="title">
+                    <span class="time">6月21日</span>
+                    <span class="stock">数据科技</span>
+                    <span class="code">(123456)</span>
+                </p>
+                <a href="#/sell" class="detail">详情》</a>
+            </div>
+            <div class="line"></div>
+            <div class="czzlBoxDown">
+                <p>建议买入价格：<span>12.20~12.37</span></p>
+                <p>仓位：<span>30%</span></p>
+            </div>
+        </div>
+
+        <div class="czzlBox buy">
+            <div class="czzlBoxUp">
+                <p class="title">
+                    <span class="time">6月21日</span>
+                    <span class="stock">数据科技</span>
+                    <span class="code">(123456)</span>
+                </p>
+                <a href="#/buy" class="detail">详情》</a>
+            </div>
+            <div class="line"></div>
+            <div class="czzlBoxDown">
+                <p>建议卖出价格：<span>12.20~12.37</span></p>
+                <p>持仓：<span>30%</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+@@include('./common/foot.html')
+</body>
+<script>
+  /*initial the head*/
+  function initial(index) {
+    var head = document.querySelector('.instructionHead');
+    var ps = head.querySelectorAll('p');
+    ps[index].className = 'on';
+  }
+
+  initial(2);
+</script>
+</html>

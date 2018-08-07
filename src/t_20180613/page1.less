@@ -1,0 +1,88 @@
+@imgUrl:"http://public.jyzqsh.com/t_20180613/";
+
+
+html,body,p{
+  margin:0;
+  padding:0;
+}
+
+.container{
+  font-size:14px;
+  overflow: hidden;
+  .part{
+    position:relative;
+  }
+  .qr_code{
+    position:absolute;
+    z-index:1;
+    left:0;
+    bottom:0;
+    width:6.4rem;
+    height:4.24rem;
+    img{
+      display:block;
+      width:100%;
+      height:100%;
+    }
+  }
+
+  .wx_copy_btn{
+    position:absolute;
+    z-index:1;
+    bottom:0;
+    width:6.4rem;
+    height:1.3rem;
+    img{
+      display:block;
+      width:100%;
+      height:100%;
+    }
+  }
+}
+.part_1{
+  width:6.4rem;
+  height:10.72rem;
+  background:url("@{imgUrl}page_one_bg1.jpg") no-repeat;
+  background-size:cover;
+}
+.part_2{
+  width:6.4rem;
+  height:8.47rem;
+  background:url("@{imgUrl}page_one_bg2.jpg") no-repeat;
+  background-size:cover;
+}
+.part_3{
+  width:6.4rem;
+  height:5.43rem;
+  background:url("@{imgUrl}page_one_bg3.jpg") no-repeat;
+  background-size:cover;
+}
+.part_4{
+  width:6.4rem;
+  height:7.16rem;
+  background:url("@{imgUrl}page_one_bg4.jpg") no-repeat;
+  background-size:cover;
+}
+.part_5{
+  width:6.4rem;
+  height:2.02rem;
+  background:url("@{imgUrl}page_one_bg5.jpg") no-repeat;
+  background-size:cover;
+}
+.foot{
+  width:100%;
+  height:100%;
+  font-size:10px;
+
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  p{
+    color:#fff;
+    line-height: 1.5;
+    text-align: center;
+    white-space: nowrap;
+  }
+}

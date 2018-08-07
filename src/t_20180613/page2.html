@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    @@include('../commom/head.html',{
+    "psd":"640",
+    "px":"100"
+    })
+    <title>股市新手掘金秘籍限时公开</title>
+    <link rel="stylesheet" href="/public/lib/normalize-css/normalize.css">
+    <link rel="stylesheet" href="/public/lib/jquery-toast-plugin/dist/jquery.toast.min.css">
+    <link rel="stylesheet" href="/dist/t_20180613/page2.css">
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?ba332af530e17e00f51feee5c05e3215";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="part part_1">
+
+    </div>
+    <div class="part part_2">
+
+    </div>
+    <div class="part part_3">
+        <div id="copy_btn" class="wx_copy_btn clipBoard" data-clipboard-text="jytg6626">
+            <img src="http://public.jyzqsh.com/t_20180613/page_two_btn.png"/>
+        </div>
+    </div>
+    <div class="part part_4">
+
+    </div>
+    <div class="part part_5">
+        <div id="code" class="qr_code clipBoard" data-clipboard-text="jytg6626">
+            <img src="http://public.jyzqsh.com/t_20180613/page_two_code.png"/>
+        </div>
+    </div>
+    <div class="part part_6">
+        @@include('../commom/foot.html')
+    </div>
+</div>
+</body>
+<script src="/public/lib/jquery/dist/jquery.min.js"></script>
+<script src="/public/lib/clipboard/dist/clipboard.min.js"></script>
+<script>
+  function compatibility() {
+    var device = 'unknown';
+    var str = navigator.userAgent
+      , reg = {
+        android: /Android ([0-9.]*)/gi,
+        iphone: /iPhone/gi
+      }
+
+    if (reg.iphone.exec(str)) {
+      device = 'iPhone'
+    }
+    else if (reg.android.exec(str)) {
+      device = 'Android'
+    }
+
+
+    return device;
+  }
+
+  function add_record(title,device,team) {
+
+    var data = {
+      record_title:title,
+      record_device:device,
+      record_team:team
+    }
+
+    return fetch('/records/add',{
+      method: 'post',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+        .then(function (res) {
+          if(res.ok){
+            return res.json()
+          }
+          else{
+            return res.text()
+          }
+        })
+        .then(function (json) {
+          if(typeof json === 'string'){
+            localStorage.setItem('error',json);
+            location.href='/public/pages/err_page.html'
+          }
+        })
+        .catch(function(err){
+          console.log(err)
+        })
+  }
+
+  function add_click_record(title,device,btn,team){
+
+    var data={
+      click_title:title,
+      click_device:device,
+      click_btn:btn,
+      click_team:team
+    }
+
+    return fetch('/clicks/add', {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(function (res) {
+        if(res.ok){
+          return res.json()
+        }
+        else{
+          return res.text()
+        }
+      })
+      .then(function (json) {
+        if(typeof json === 'string'){
+          localStorage.setItem('error',json);
+          location.href='/public/pages/err_page.html'
+        }
+      })
+      .catch(function(err){
+        console.log(err)
+      })
+  }
+
+  function pluginGetQuery(key){
+    var search = location.search;
+    var query = search.slice(1);
+    var _info = query.split('&');
+    var value= null;
+    _info.forEach(function(info){
+      var arr = info.split('=');
+
+      if(arr[0]===key){
+        value = arr[1]
+      }
+    })
+    return value;
+  }
+
+
+  $(function(){
+    var device = compatibility();
+    var title = document.querySelector('title').innerHTML;
+    var team = pluginGetQuery('team');
+
+    try{
+      add_record(title,device,team)
+    }
+    catch(e){
+      alert(e.message)
+    }
+
+
+    var clipBoard = new ClipboardJS('.clipBoard');
+
+    clipBoard.on('success',function(){
+      alert('复制成功')
+      // $.toast({
+      //   text:'复制成功',
+      //   textAlign:'center',
+      //   allowToastClose : false,
+      //   loader:false
+      // })
+    })
+
+    $('.wx_copy_btn').on('click', function () {
+      var id = this.getAttribute('id');
+      add_click_record(title,device,id,team)
+    })
+
+    $('.qr_code').on('click', function () {
+      var id = this.getAttribute('id');
+      add_click_record(title,device,id,team)
+    })
+  })
+</script>
+</html>
