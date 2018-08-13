@@ -9,7 +9,7 @@
     <title>每天盘前送3只牛股</title>
     <link rel="stylesheet" href="/public/lib/normalize-css/normalize.css">
     <link rel="stylesheet" href="/public/lib/jquery-toast-plugin/dist/jquery.toast.min.css">
-    <link rel="stylesheet" href="/dist/t_20180807/page.css">
+    <link rel="stylesheet" href="/dist/t_20180813/page.css">
 </head>
 <body>
 <div class="container">
@@ -22,9 +22,8 @@
         </div>
         <div class="container-text">
             <p class="text-one">投资有风险 入市需谨慎</p>
-            <p class="text-two">版权所有：深圳君银证券投资顾问有限公司</p>
-            <p class="text-three">从事证券投资，请通过合法证券经营机构进行</p>
-            <p class="text-three">合法机构名单可到中国证监会网站（www.csrc.gov.cn）查询</p>
+            <p class="text-two">版权所有：湖南巨景证券投资顾问有限公司安徽分公司</p>
+            <p class="text-three">皖ICP备17010396号</p>
         </div>
     </div>
     <div class="container-pop" id="pop">
@@ -32,10 +31,10 @@
             <div class="pop-box-input">
                 <input id="phone" type="number" placeholder="请输入手机号码">
             </div>
-            <!--<div class="pop-box-code">-->
-                <!--<input id="code" type="number" placeholder="验证码">-->
-                <!--<div id="getCode" class="pop-box-code-get">发送验证码</div>-->
-            <!--</div>-->
+            <div class="pop-box-code">
+                <input id="code" type="number" placeholder="验证码">
+                <div id="getCode" class="pop-box-code-get">发送验证码</div>
+            </div>
             <div class="pop-box-btn" id="addPhone"></div>
             <img src="/assets/t_20180807/pop-box-close.png" class="pop-box-close" id="popClose"/>
         </div>
@@ -50,87 +49,87 @@
       var phoneInput = $('#phone');
       var addPhoneButton = $('#addPhone');
       var codeInput = $('#code');
-      // var getCodeBtn = $('#getCode');
-      // var TIME_CONTROL = null;
-      // var TIME = 60;
+      var getCodeBtn = $('#getCode');
+      var TIME_CONTROL = null;
+      var TIME = 60;
 
       /*手机验证*/
       function checkPhone(phone){
         return PHONE_NUMBER_REG.test(phone)
       }
-      // /*验证码验证*/
-      // function checkCode(code){
-      //   if(code.length === 0){
-      //     return false;
-      //   }
-      //   return true;
-      // }
-      // /*验证码60s*/
-      // function waitCode(){
-      //   if(TIME >= 0){
-      //     getCodeBtn.html(TIME+'秒');
-      //     TIME--;
-      //
-      //   }else{
-      //     clearInterval(TIME_CONTROL);
-      //     TIME_CONTROL = null;
-      //     TIME = 60;
-      //     getCodeBtn.html('发送验证码');
-      //   }
-      //
-      // }
+      /*验证码验证*/
+      function checkCode(code){
+        if(code.length === 0){
+          return false;
+        }
+        return true;
+      }
+      /*验证码60s*/
+      function waitCode(){
+        if(TIME >= 0){
+          getCodeBtn.html(TIME+'秒');
+          TIME--;
+
+        }else{
+          clearInterval(TIME_CONTROL);
+          TIME_CONTROL = null;
+          TIME = 60;
+          getCodeBtn.html('发送验证码');
+        }
+
+      }
 
       /*点击弹框*/
       $('#popShow').click(function(){$('#pop').addClass('show')});
       $('#popClose').click(function(){$('#pop').removeClass('show')});
 
-      // /*获取验证码*/
-      // getCodeBtn.click(function(){
-      //
-      //   if(TIME_CONTROL!==null){
-      //     return false;
-      //   }
-      //
-      //   var phone = $.trim(phoneInput.val());
-      //   if(!checkPhone(phone)){
-      //     return $.toast({
-      //       position:'bottom-center',
-      //       text:'手机号码格式不对',
-      //       textAlign:'center',
-      //       allowToastClose : false,
-      //       loader:false
-      //     })
-      //   }
-      //
-      //   return $.ajax('/assets/json/test.json',{
-      //     data:{phone_num:phone},
-      //     success:function(){
-      //       TIME_CONTROL = setInterval(waitCode,1000);
-      //       return $.toast({
-      //         position:'bottom-center',
-      //         text:'验证码发送成功',
-      //         textAlign:'center',
-      //         allowToastClose : false,
-      //         loader:false,
-      //         bgColor:'red'
-      //       })
-      //     },
-      //     error:function(){
-      //       return $.toast({
-      //         position:'bottom-center',
-      //         text:'网络链接错误',
-      //         textAlign:'center',
-      //         allowToastClose : false,
-      //         loader:false
-      //       })
-      //     }
-      //   })
-      // })
+      /*获取验证码*/
+      getCodeBtn.click(function(){
+
+        if(TIME_CONTROL!==null){
+          return false;
+        }
+
+        var phone = $.trim(phoneInput.val());
+        if(!checkPhone(phone)){
+          return $.toast({
+            position:'bottom-center',
+            text:'手机号码格式不对',
+            textAlign:'center',
+            allowToastClose : false,
+            loader:false
+          })
+        }
+
+        return $.ajax('/assets/json/test.json',{
+          data:{phone_num:phone},
+          success:function(){
+            TIME_CONTROL = setInterval(waitCode,1000);
+            return $.toast({
+              position:'bottom-center',
+              text:'验证码发送成功',
+              textAlign:'center',
+              allowToastClose : false,
+              loader:false,
+              bgColor:'red'
+            })
+          },
+          error:function(){
+            return $.toast({
+              position:'bottom-center',
+              text:'网络链接错误',
+              textAlign:'center',
+              allowToastClose : false,
+              loader:false
+            })
+          }
+        })
+      })
 
       /*留下号码*/
       addPhoneButton.click(function(){
         var phone = $.trim(phoneInput.val());
-        // var code = $.trim(codeInput.val());
+        var code = $.trim(codeInput.val());
 
         if(!checkPhone(phone)){
           return $.toast({
@@ -141,15 +140,15 @@
             loader:false
           })
         }
-        // if(!checkCode(code)){
-        //   return $.toast({
-        //     position:'bottom-center',
-        //     text:'验证码有误',
-        //     textAlign:'center',
-        //     allowToastClose : false,
-        //     loader:false
-        //   })
-        // }
+        if(!checkCode(code)){
+          return $.toast({
+            position:'bottom-center',
+            text:'验证码有误',
+            textAlign:'center',
+            allowToastClose : false,
+            loader:false
+          })
+        }
 
         return $.ajax('/index/checkPhone',{
           data:{phone_num:phone},
