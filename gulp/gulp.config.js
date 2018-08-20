@@ -1,7 +1,7 @@
 const dist = 'dist';
 const src = 'src';
 
-const file = 't_20180813';
+const file = 't_20180820';
 
 const config={
   root:'./',
