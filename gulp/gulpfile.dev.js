@@ -14,7 +14,7 @@ const concat = require('gulp-concat');
 const fileInclude = require('gulp-file-include');
 
 
-const {html,style,javascript,AUTOPREFIXER_BROWSERS} = config;
+const {html,style,javascript,img,AUTOPREFIXER_BROWSERS} = config;
 
 function dev() {
 
@@ -61,6 +61,16 @@ function dev() {
   })
 
   /**
+   * javascript
+   */
+  gulp.task('dev:img', () => {
+    return gulp.src(img.from)
+      .pipe(plumber())
+      .pipe(gulp.dest(img.to))
+      .pipe(browserSync.stream())
+  })
+
+  /**
    * plugins
    */
   gulp.task('dev:plugins',()=>{
@@ -77,7 +87,7 @@ function dev() {
   /**
    * serve
    */
-  gulp.task('dev', ['dev:style','dev:plugins','dev:javascript','dev:html'], () => {
+  gulp.task('dev', ['dev:style','dev:plugins','dev:javascript','dev:img','dev:html'], () => {
     browserSync.init({
       server: config.root,
       notify: false,
@@ -86,6 +96,7 @@ function dev() {
 
     gulp.watch(style.from, ['dev:style']);
     gulp.watch([html.from,html.common],['dev:html']);
+    gulp.watch(img.from,['dev:img']);
     gulp.watch([javascript.pluginsFrom],['dev:plugins']);
     gulp.watch(javascript.from,['dev:javascript']);
   })

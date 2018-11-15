@@ -1,7 +1,7 @@
 const dist = 'dist';
 const src = 'src';
 
-const file = 't_20180831';
+const file = 't_20181031';
 
 const config={
   root:'./',
@@ -27,6 +27,11 @@ const config={
     watch:`${src}/${file}/*.html`,
     common:`${src}/common/*.html`,
     exclude:`${src}/common/*.html`
+  },
+  img:{
+    from:`${src}/${file}/img/*.*`,
+    to:`${dist}/${file}/img`,
+    watch:`${src}/${file}/img/*.*`,
   },
   AUTOPREFIXER_BROWSERS:[
     'ie >= 10',

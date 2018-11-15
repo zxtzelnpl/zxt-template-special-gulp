@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="/assets/t_20180831/css/prtst.css" rel="stylesheet" type="text/css" />
@@ -21,21 +21,15 @@
             <div class="divbigtwo">
                 <ul class="bigcontent">
                     <li>诊断结果已出</li>
-                    <li>
-                        <input type="text" id="tgMobile" name="tgMobile" onBlur='this.value=this.value.replace(/\D/gi,"")' onKeyUp='this.value=this.value.replace(/\D/gi,"")'
-                                placeholder="请输入您的手机号码" maxlength="11" />
-                        <img src="/assets/t_20180831/images/phone.png" alt="">
-                    </li>
+                    <li> <input type="text" id="tgMobile" name="tgMobile" onBlur='this.value=this.value.replace(/\D/gi,"")' onKeyUp='this.value=this.value.replace(/\D/gi,"")'
+                                placeholder="请输入您的手机号码" maxlength="11" /> <img src="/assets/t_20180831/images/phone.png" alt=""> </li>
                     <li>
                         <input type="text" id="tgCode" name="tgCode"
                                 placeholder="验证码" maxlength="11" />
                         <button id="getCode">获取验证码</button>
                         <img src="/assets/t_20180831/images/phone.png" alt="">
                     </li>
-                    <li>
-                        <button id="btnTg"  class="getinfo">立即领取</button>
-                        <img src="/assets/t_20180831/images/point.png" alt="">
-                    </li>
+                    <li> <button id="btnTg"  class="getinfo">立即领取</button> <img src="/assets/t_20180831/images/point.png" alt=""> </li>
                     <li>
                         请填写正确信息 <b> &nbsp;</b>诊断结果稍后将以电话形式发送
                     </li>
@@ -674,8 +668,8 @@
     <!--con end-->
 </div>
 <!--main end-->
-<input class="tgName" name="tgName" type="hidden" />
-
+<input class="tgName" name="tgName"  />
+<input type="hidden" id="company_id" name="company_id" value="<?php echo $company_id; ?>">
 <!-- 脚部 start -->
 <div class="footer_wrap">
     <div class="footer w1000">
@@ -694,6 +688,7 @@
 
 <!-- 脚部 end -->
 <script type="text/javascript">
+/*判断股票代码是否正确*/
   $("#btnSave").click(function () {
     var gpze=/^(((002|000|300|600)[\d]{3})|60[\d]{4})/;
     var gpinput=$('#stockcode').val();
@@ -705,7 +700,7 @@
       alert("股票代码不正确，无法诊断\n请输入6位数的股票代码，以000|002|300|600开头");
       return false;
     }else{
-      $('.jmtdjl_box2two').show();
+      $('.jmtdjl_box2two').show();//股票正确弹出手机框
     }
   })
 
@@ -736,6 +731,7 @@
   console.log($('#list .con4-time'))
 </script>
 <script>
+
   function isMobile(phone) {
     var phoneReg = /^1[3,4,5,7,8][0-9]{9}$/;
     if (!phoneReg.test(phone)) {
@@ -745,7 +741,7 @@
   }
 
   /*做了修改增加了验证码*/
-  function userOptgpbysem(nameBox, mobileBox,codeBox, codeBtn, opType, tips) {
+  function userOptgpbysem(nameBox, mobileBox,codeBox,codeBtn,opType,tips) {
     if (typeof(tips) == "undefined") {
       tips = "您已操作成功！客服人员会电话联系您，请稍作等待！";
     }
@@ -790,13 +786,13 @@
     });
 
     var params = {
-      "LinkID": opType,
-      "Mobile": mobile,
-      "Reserve1": name,
+      "company_id": opType,
+      "phone_num": mobile,
+      "stock_num": name,
       "code":code
     };
 
-    var url = "http://tginterface.songyutech.com/api/stif/UserOpt";
+    var url = "/index/checkPhone";
     $.ajax({
       url:url,
       type:"get",
@@ -804,32 +800,24 @@
       dataType:"json",
       success:function(data){
         layer.close(loadi);
-        switch (data.Code) {
-          case "0":
+        if(data == 0){
+            layer.tips("您已操作成功， 无需再次操作！", $("#" + codeBtn), {
+              tips: [1, '#fcc000'],
+              time: 3000
+            });
+        }
+        else if(data == 1){
             layer.confirm(tips, {
               btn: ['确定'] //按钮
             }, function() {
               window.location.reload()
             });
-            break;
-          case "1":
-            layer.tips("手机号码格式错误！", $("[name='" + mobileBox + "']"), {
-              tips: [1, '#fcc000'],
-              time: 3000
-            });
-            break;
-          case "2":
-            layer.tips("您已操作成功， 无需再次操作！", $("#" + codeBtn), {
-              tips: [1, '#fcc000'],
-              time: 3000
-            });
-            break;
-          default:
+        }
+        else{
             layer.tips("操作失败！", $("#" + codeBtn), {
-              tips: [1, '#fcc000'],
-              time: 3000
+               tips: [1, '#fcc000'],
+               time: 3000
             });
-            break;
         }
       },
       error: function(data) {
@@ -840,82 +828,89 @@
     })
   }
 
-  /*做了修改增加了验证码*/
   $(function() {
     $('#btnTg').click(function() {
-      userOptgpbysem('tgName', 'tgMobile', 'tgCode','btnTg', 3461);
+      userOptgpbysem('tgName', 'tgMobile', 'btnTg', 4);
+    })
+  })
+
+    /*做了修改增加了验证码*/
+    $(function() {
+      $('#btnTg').click(function() {
+        userOptgpbysem('tgName', 'tgMobile', 'tgCode','btnTg', 3461);
+      });
     });
-  });
 
-  /*这里是新加的*/
-  var codeControl = {
-    index:60,
-    string:'',
-    control:null,
-    dom:$('#getCode'),
-    counting:function(){
-      var me = this;
-      console.log(me.index)
-      if(me.index>=0){
-        me.dom.html(me.index+'秒');
-        me.index--;
+    /*这里是新加的*/
+    var codeControl = {
+      index:60,
+      string:'',
+      control:null,
+      dom:$('#getCode'),
+      counting:function(){
+        var me = this;
+        console.log(me.index)
+        if(me.index>=0){
+          me.dom.html(me.index+'秒');
+          me.index--;
+        }
+        else{
+          me.dom.html(me.string);
+          clearInterval(me.control);
+          me.control = null;
+        }
+      },
+      init:function(){
+        var me = this;
+        me.dom.on('click',function(){
+
+          console.log('click');
+          console.log(me.control);
+
+          var mobile = $.trim($("[name='tgMobile']").val());
+
+          if (mobile == null || mobile == "") {
+            layer.tips("请填写手机号码", $("[name='tgMobile']"), {
+              tips: [1, '#fcc000'],
+              time: 3000
+            });
+            return;
+          }
+
+          if(me.control!==null){
+            layer.tips("请求验证码过于频繁", $("[id='getCode']"), {
+              tips: [1, '#fcc000'],
+              time: 1000
+            });
+          }
+
+          if(me.control===null){
+            console.log('go');
+            $.ajax({
+              url:'/mock/data.json',
+              data:{
+                mobile:mobile
+              },
+              success:function(data){
+
+                console.log(data);
+                me.string = me.dom.html();
+                me.control = setInterval(function(){
+                  me.counting();
+                },1000);
+              },
+              fail:function(){
+
+              }
+            });
+          }
+        })
       }
-      else{
-        me.dom.html(me.string);
-        clearInterval(me.control);
-        me.control = null;
-      }
-    },
-    init:function(){
-      var me = this;
-      me.dom.on('click',function(){
-
-        console.log('click');
-        console.log(me.control);
-
-        var mobile = $.trim($("[name='tgMobile']").val());
-
-        if (mobile == null || mobile == "") {
-          layer.tips("请填写手机号码", $("[name='tgMobile']"), {
-            tips: [1, '#fcc000'],
-            time: 3000
-          });
-          return;
-        }
-
-        if(me.control!==null){
-          layer.tips("请求验证码过于频繁", $("[id='getCode']"), {
-            tips: [1, '#fcc000'],
-            time: 1000
-          });
-        }
-
-        if(me.control===null){
-          console.log('go');
-          $.ajax({
-            url:'/mock/data.json',
-            data:{
-              mobile:mobile
-            },
-            success:function(data){
-
-              console.log(data);
-              me.string = me.dom.html();
-              me.control = setInterval(function(){
-                me.counting();
-              },1000);
-            },
-            fail:function(){
-
-            }
-          });
-        }
-      })
     }
-  }
 
-  codeControl.init()
+    codeControl.init()
 </script>
 
 </body>
+
 </html>
